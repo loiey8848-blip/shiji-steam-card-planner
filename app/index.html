@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'">
+<title>拾级</title><link rel="stylesheet" href="style.css?v=17"></head>
+<body>
+<aside class="account-rail" aria-label="Steam 账户概览">
+  <section class="account-overview" aria-labelledby="persona">
+    <h2 id="persona">我的 Steam 等级</h2>
+    <div class="level"><span>当前等级</span><strong id="lv">—</strong></div>
+    <div class="track" aria-hidden="true"><b id="xpbar"></b></div>
+    <dl class="account-stats">
+      <div><dt>距下一级</dt><dd id="gap">—</dd></div>
+      <div><dt>累计经验</dt><dd id="xp">—</dd></div>
+      <div><dt>普通库存卡牌</dt><dd id="owned">—</dd></div>
+    </dl>
+  </section>
+  <div class="account-controls">
+    <label for="profile">SteamID64 或个人资料链接</label>
+    <input id="profile" spellcheck="false" placeholder="输入 Steam 个人资料">
+    <button id="sync" data-burst>同步</button>
+    <p id="accountNote" role="status">等待读取账号</p>
+    <button id="login">Steam 登录与市场 ↗</button>
+  </div>
+</aside>
+<main><h1>配卡工作台</h1>
+<div class="plan-shell">
+<section id="savedPlan" class="specificBox" hidden></section>
+<div id="progress" role="status" aria-live="polite"></div>
+</div>
+<section id="checkout" hidden></section>
+<button data-busy id="resumeBatch" hidden>核对上次打开的购买批次</button>
+<details id="planningTools" open><summary>查找配卡方案</summary>
+<nav aria-label="配卡方式"><button class="active" id="tab-plan" aria-pressed="true">升级配卡</button><button id="tab-game" aria-pressed="false">指定游戏查价</button><button id="tab-inventory" aria-pressed="false">库存补齐</button></nav>
+<section id="planner" class="workbench-panel"><div class="controls"><label>目标等级<input id="target" type="number" min="1" max="9999"></label><label>本次核价范围<select id="scope"><option value="12">前 12 款候选</option><option value="40">前 40 款候选</option><option value="120">前 120 款候选</option><option value="0">全部可选游戏</option></select></label><button class="primary" id="scan" data-burst>寻找升级方案</button><button id="stop" hidden>停止核价</button><span id="goal" class="muted"></span></div>
+<div class="quoteGrid"><button class="quote selected" id="choose-ask"><span>现在买齐</span><strong id="askCost">—</strong><small id="askMeta">按可买数量逐档计价</small></button><button class="quote" id="choose-bid"><span>限价求购</span><strong id="bidCost">—</strong><small id="bidMeta">按每张卡的最高买价估算</small></button></div>
+<p id="comparison" class="sub"></p><div class="workhead"><h2>升级方案</h2><div class="line"><button id="more" data-burst hidden>扩大搜索</button><button class="primary" id="cart" disabled>核价并准备购买单</button></div></div>
+<div id="coverage" class="muted"></div><div id="result" class="results empty">同步账号后，选择目标等级并开始核价。</div></section>
+<section id="specific" class="workbench-panel" hidden><div class="controls"><label class="wide">游戏名称、AppID 或商店链接<input id="query" placeholder="例如 Half-Life 2 或 220" autocomplete="off"></label><button id="lookup" data-burst class="primary">查询卡组</button></div><div id="matches"></div><div id="details" class="empty">选择游戏后查看补齐一套和升满徽章的费用。</div></section>
+<section id="inventory" class="workbench-panel" hidden>
+  <div class="controls">
+    <label class="wide" for="inventoryQuery">搜索库存里的游戏<input id="inventoryQuery" placeholder="游戏名称或 AppID" autocomplete="off"></label>
+    <button id="priceInventory" data-burst class="primary">比较补齐费用</button><button id="stopInventory" hidden>停止核价</button>
+  </div>
+  <p id="inventorySummary" class="sub" aria-live="polite"></p>
+  <div id="inventoryResults"></div>
+</section>
+<details id="exceptions" hidden><summary>查看未报价项目</summary><div id="errors"></div></details></details>
+<footer>普通游戏徽章 · 每套 100 XP<span id="sourceInfo" role="status" data-loading>卡组目录载入中</span></footer>
+</main><script src="engine.js?v=7"></script><script src="data.js?v=18"></script><script src="progress.js?v=13"></script><script src="inventory.js?v=18"></script><script src="ui.js?v=18"></script><script src="button-burst.js?v=17"></script></body></html>
